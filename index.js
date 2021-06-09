@@ -1,5 +1,5 @@
 const CDP = require('chrome-remote-interface');
-const fs = require('fs');
+const filendir = require('filendir');
 const cp = require('child_process');
 const net = require('net');
 const commandExists = require('command-exists');
@@ -77,7 +77,7 @@ class RenderPDF {
         await renderer.connectToChrome();
         try {
             const buff = await renderer.renderPdf(url, renderer.generatePdfOptions());
-            fs.writeFileSync(filename, buff);
+            filendir.writeFileSync(filename, buff);
             renderer.log(`Saved ${filename}`);
         } catch (e) {
             renderer.error('error:', e);
@@ -103,7 +103,7 @@ class RenderPDF {
         for (const job of pairs) {
             try {
                 const buff = await renderer.renderPdf(job.url, renderer.generatePdfOptions());
-                fs.writeFileSync(job.pdf, buff);
+                filendir.writeFileSync(job.pdf, buff);
                 renderer.log(`Saved ${job.pdf}`);
             } catch (e) {
                 renderer.error('error:', e);
